@@ -1,0 +1,90 @@
+.nav{
+    position: sticky;
+    width:100vw;
+    height: 50px;
+    background:linear-gradient(rgb(44, 43, 43),grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+
+}
+
+.searchBar{
+    background-color: white;
+    width:200px;
+    padding: 10px;
+   
+    border-radius: 10px;
+
+}
+
+.searchInput{
+    background-color: white;
+    color: black;
+    outline: none;
+    border: none;
+    width:100%;
+}
+
+.rightNav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categories{
+    width:30px;
+    height: 40px;
+    margin-left: 12px;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    /* background-color: rgb(150, 150, 150);
+    border-radius: 10px; */
+   
+  }
+
+  .nav a{
+    cursor: pointer;
+  }
+
+  .dropdowncontent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+
+  .dropdowncontent a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdowncontent a:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdowncontent {
+    display: block;
+  }
+  
+
