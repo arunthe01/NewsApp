@@ -13,9 +13,11 @@ function handleCategories(){
 
 
 
-function Nav({setData,SetActive}) {
+function Nav({setData,SetActive,prev}) {
 
-  var [latest,setLatest] = useState(),[ business, SetBusiness]  = useState(),[ sports, setSports] = useState(), [entertainment,setEntertainment] = useState();
+  // var v = Data;
+
+  var [latest,setLatest] = useState(),[ business, SetBusiness]  = useState(),[ sports, setSports] = useState(), [entertainment,setEntertainment] = useState("");
   const [query,SetQuery]= useState("");
   const x = useEffect( ()=>{
   
@@ -51,20 +53,24 @@ function Nav({setData,SetActive}) {
 
 
 
-  function handleChange(e){
+  function handleChange(e,b){
+
    
-    if(e.key === "Enter"){
-      SetQuery((e.target.value).trim());
+   
+   
+    if(e.key === "Enter"|| b!=""){
+
+      if(b!="") SetQuery(b);
+     
       axios.get(`https://newsapi.org/v2/everything?q=${query}&from=2023-03-15&to=2023-03-15&sortBy=popularity&apiKey=8ca2258b01c144908c384ba4d4f03e41`).then(function(resp){
         const data = resp;
         if( !data || data.data.articles.length == 0) alert("Not found on api");
-        setData(data.data.articles);
+        else setData(data.data.articles);
       }).catch(function (error) {
-        if (error.response) {
+        if (error) {
         // Request made and server responded
-        alert("Error:"+error.response.status);
-        console.log("Error:"+error.response.status);
-        console.log(error.response.headers);
+        alert("Error:"+error.response.headers);
+       
         } 
 
       });
@@ -75,15 +81,47 @@ function Nav({setData,SetActive}) {
   }
   return (
     <div className={styles.nav}> 
-        <p className={styles.appName}> News App</p>
+        <div className={styles.headers}>
+          <p className={styles.appName}> News App</p>
+          <p className={styles.homeButton} onClick={()=>{setData(prev)}}>Home</p>
+        </div>
         <div className={styles.rightNav}>
+
+          <div className={styles.searchContainer}> 
             <div className={styles.searchBar}> 
-                <input className={styles.searchInput} onKeyDown={(e)=>handleChange(e)}/> 
+                <input className={styles.searchInput}  onKeyPress={(e)=>{handleChange(e,"");   SetQuery((e.target.value));}} /> 
             </div>
+
+            <div className={styles.dropdownSearch}>
+          {entertainment&& entertainment
+            .filter((item) => {
+              const searchTerm = (query.toString())?.toLowerCase();
+              
+              const api_data = (item?.title?.toString())?.toLowerCase();
+
+              return (
+                searchTerm &&
+                api_data.startsWith(searchTerm)
+               
+              );
+            })
+            .slice(0, 20)
+            .map((item,idx) => (
+              <div 
+                onClick={(e) => handleChange(e,item)}
+                className={styles.dropdownSearchrow}
+                key={idx}
+              >
+                {item.title}
+              </div>
+            ))}
+        </div>
+
+          </div>
            
               <div class={styles.dropdown}>
-                <button class={styles.dropbtn}>Categories
-                  <i class="fa fa-caret-down" style={{"width":"20px" , "height":"20px"}}> ▼</i>
+                <button className={styles.dropbtn}>Categories
+                  <i className="fa fa-caret-down" style={{"width":"20px" , "height":"20px"}}> ▼</i>
                 </button>
                 <div class={styles.dropdowncontent}>
                   <a onClick={(e)=>{e.preventDefault; SetActive(1);  setData(business); } }>Business</a>

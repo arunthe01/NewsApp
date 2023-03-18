@@ -27,7 +27,7 @@ function News({Data}) {
                      <p className={styles.newsDescription}>{item.description}</p>
 
 
-                     <Link className={styles.newsButton} href={item.url}> Read More... </Link>
+                     <Link className={styles.newsButton} href={item.url} target="_blank"> Read More... </Link>
 
 
 

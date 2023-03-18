@@ -21,6 +21,7 @@ export default function Home() {
 
  const [Data,setData] = useState("");
  const [active,SetActive] = useState(1);
+ const [prev,setPrev] = useState(Data);
  
 
     const [noOfPostPerPage, setnoOfPostPerPAge] = useState(6);
@@ -43,6 +44,9 @@ export default function Home() {
     axios.get("https://newsapi.org/v2/top-headlines?country=us&apiKey=8ca2258b01c144908c384ba4d4f03e41").then(async function(resp){
       const data = resp;
       setData(data.data.articles);
+      setPrev(data.data.articles);
+    }).catch(function(err){
+      alert(err.respose.headers);
     });
 
   
@@ -85,7 +89,7 @@ function handlePrev(){
 
   return (
     <>
-    <Nav setData={setData}  SetActive={SetActive}/>
+    <Nav setData={setData}  SetActive={SetActive} prev={prev}/>
     <News Data={ModArray}/>
     <Pagination noOfPostPerPage={noOfPostPerPage} totalPosts={Data && Data.length} paginate={paginate} active={active} SetActive={SetActive} handleNext={handleNext} handlePrev={handlePrev}/>
     </>
