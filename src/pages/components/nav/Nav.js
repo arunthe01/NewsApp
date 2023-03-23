@@ -89,7 +89,7 @@ function Nav({setData,SetActive,prev}) {
 
           <div className={styles.searchContainer}> 
             <div className={styles.searchBar}> 
-                <input className={styles.searchInput}  onKeyPress={(e)=>{handleChange(e,"");   SetQuery((e.target.value));}} /> 
+                <input className={styles.searchInput}  onKeyPress={(e)=>{handleChange(e,"");   SetQuery((e.target.value));}} placeholder="The Api is not allowing to fetch data once the website is deployed."/> 
             </div>
 
             <div className={styles.dropdownSearch}>
